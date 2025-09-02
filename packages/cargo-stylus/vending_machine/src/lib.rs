@@ -10,6 +10,7 @@
 // Allow `cargo stylus export-abi` to generate a main function if the "export-abi" feature is enabled.
 #![cfg_attr(not(feature = "export-abi"), no_main)]
 extern crate alloc;
+use stylus_cache_sdk::{is_contract_cacheable};
 
 use alloy_primitives::{Address, Uint};
 // Import items from the SDK. The prelude contains common traits and macros.
@@ -70,4 +71,8 @@ impl VendingMachine {
         // Return the user's cupcake balance from storage.
         return self.cupcake_balances.get(user_address);
     }
+    pub fn is_cacheable(&self) -> bool {
+        is_contract_cacheable()
+    }
+
 }
